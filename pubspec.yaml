@@ -1,22 +1,24 @@
 name: hive_cache
 description: Automatically persists and restores states
-version: 1.0.0
+version: 1.0.1
 # repository: https://github.com/my_org/my_repo
-topics: [cache, state-management]
+topics: [ cache, state-management ]
 
 platforms:
-  android:
-  ios:
-  linux:
-  macos:
-  web:
-  windows:
+  ? android
+  ? ios
+  ? linux
+  ? macos
+  ? web
+  ? windows
 
 environment:
-  sdk: ^3.3.2
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  hive: ^2.2.3
+  meta: ^1.16.0
+  hive_ce: ^2.10.1
+  rxdart: ^0.28.0
   synchronized: ^3.1.0+1
 
 dev_dependencies:
