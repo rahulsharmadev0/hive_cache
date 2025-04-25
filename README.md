@@ -1,39 +1,47 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
+```
+dependencies:
+  meta: ^1.16.0
+  hive_ce: ^2.10.1
+  hive_cache:
+    git:
+      url: https://github.com/rahulsharmadev0/hive_cache.git
+      ref: main
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+dev_dependencies:
+  hive_ce_generator: ^1.8.2
+
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+
+// ----Repositories----
+class PersonRepository extends HiveCache<Person?> {
+  PersonRepository() : super(null);
+
+  Future<void> edit(Person person) => write(person);
+
+  @override
+  Duration get cacheValidityDuration => const Duration(seconds: 10);
+}
+
+class FreezedPersonRepository extends HiveCache<FreezedPerson> {
+  FreezedPersonRepository() : super(FreezedPerson.sample);
+
+  Future<void> edit(FreezedPerson person) => write(person);
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Register Hive adapters
+  HiveRegistrar.registerAdapters();
+
+  await HiveCache.initialize<Person?>(storageDirectory: '');
+  await HiveCache.initialize<FreezedPerson>(storageDirectory: '');
+
+}
 ```
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
